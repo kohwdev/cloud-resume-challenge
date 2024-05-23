@@ -27,6 +27,7 @@ jobs:
   invalidate-cloudfront-distribution:
     needs: copy-website-to-s3-and-invalidate-cloudfront
     runs-on: ubuntu-latest
+    environment: secrets
     steps:
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
