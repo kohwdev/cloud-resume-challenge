@@ -170,31 +170,31 @@ window.addEventListener("load", function () {
 });
 
 
-//visit and pageview
-const pageviewsCount = document.getElementById('pageviews-count');
-const visitsCount = document.getElementById('visits-count');
+// //visit and pageview
+// const pageviewsCount = document.getElementById('pageviews-count');
+// const visitsCount = document.getElementById('visits-count');
 
-if(sessionStorage.getItem('visit') === null) {
-	//New visit and pageview
-	updateCounter('type=visit-pageview');
-} else {
-	//pageview
-	updateCounter('type=pageview');
-}
+// if(sessionStorage.getItem('visit') === null) {
+// 	//New visit and pageview
+// 	updateCounter('type=visit-pageview');
+// } else {
+// 	//pageview
+// 	updateCounter('type=pageview');
+// }
 
-function updateCounter(type) {
-	fetch(
-    "https://g2gxmbax76.execute-api.us-east-1.amazonaws.com/default/visit-count" +
-      type
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      pageviewsCount.textContent = data.pageviews;
-      visitsCount.textContent = data.visits;
-    });
-}
+// function updateCounter(type) {
+// 	fetch(
+//     "https://g2gxmbax76.execute-api.us-east-1.amazonaws.com/default/visit-count" +
+//       type
+//   )
+//     .then((res) => res.json())
+//     .then((data) => {
+//       pageviewsCount.textContent = data.pageviews;
+//       visitsCount.textContent = data.visits;
+//     });
+// }
 
-sessionStorage.setItem('visit', 'x')
+// sessionStorage.setItem('visit', 'x')
 
 // GET API REQUEST
 async function get_visitors() {
@@ -221,7 +221,7 @@ async function get_visitors() {
 function animateCounter(targetCount) {
 	let countElement = document.getElementById("visitors");
 	let currentCount = 0;
-	let increment = Math.ceil(targetCount / 100);
+	let increment = Math.ceil(targetCount / 1000);
 	let interval = setInterval(() => {
 		currentCount += increment;
 		if(currentCount >= targetCount) {
