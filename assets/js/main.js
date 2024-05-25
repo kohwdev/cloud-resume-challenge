@@ -205,12 +205,28 @@ async function get_visitors() {
           }
         );
         let data = await response.json()
-        document.getElementById("visitors").innerHTML = data['count'];
+        //document.getElementById("visitors").innerHTML = data['count'];
+								animateCounter(data['count']);
         console.log(data);
         return data;
     } catch (err) {
         console.error(err);
     }
+}
+
+//animation for visitor counter
+function animateCounter(targetCount) {
+	let countElement = document.getElementById("visitors");
+	let currentCount = 0;
+	let increment = Math.ceil(targetCount / 100);
+	let interval = setInterval(() => {
+		currentCount += increment;
+		if(currentCount >= targetCount) {
+			currentCount = targetCount;
+			clearInterval(interval);
+		}
+		countElement.innerHTML = currentCount;
+	},20)
 }
 
 
