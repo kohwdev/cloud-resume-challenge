@@ -201,19 +201,29 @@ async function get_visitors() {
     // call post api request function
     //await post_visitor();
     try {
-        let response = await fetch(
-          "https://g2gxmbax76.execute-api.us-east-1.amazonaws.com/default/visit-count",
-          {
-            method: "GET",
-          }
-        );
-        let data = await response.json()
-        //document.getElementById("visitors").innerHTML = data['count'];
-								animateCounter(data['count']);
-        console.log(data);
-        return data;
+      let response = await fetch(
+        "https://g2gxmbax76.execute-api.us-east-1.amazonaws.com/default/visit-count",
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      let data = await response.json();
+      // Ensure the count field exists and is a number
+      if (data && typeof data.count === "number") {
+        animateCounter(data.count);
+      } else {
+        console.error("Unexpected response format:", data);
+      }
+
+      console.log(data);
+      return data;
     } catch (err) {
-        console.error(err);
+      console.error("Failed to fetch visitors:", err);
     }
 }
 
@@ -221,7 +231,7 @@ async function get_visitors() {
 function animateCounter(targetCount) {
 	let countElement = document.getElementById("visitors");
 	let currentCount = 0;
-	let increment = Math.ceil(targetCount / 1000);
+	let increment = Math.ceil(targetCount / 100);
 	let interval = setInterval(() => {
 		currentCount += increment;
 		if(currentCount >= targetCount) {
